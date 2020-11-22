@@ -29,6 +29,7 @@ link-citations: true
 primary_colour: "#3CB371"
 titlebox_borderwidth: "0.7cm"
 title_textsize: "70pt"
+logoleft_name: "figures/uba.png"
 ---
 
 ```{r, include=FALSE}
