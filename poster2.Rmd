@@ -44,31 +44,55 @@ options(knitr.table.format = "html")
 
 # Introducción
 
-El filtrado ambiental es reconocido como el principal mecanismo formador de ensambles en hábitats antrópicos, aunque poco se sabe acerca del rol de otros procesos determinísticos. 
+El cambio del uso del suelo es uno de los mayores responsables de la pérdida de biodiversidad en hábitats terrestres causando la degradación y pérdida de los ambientes naturales. En este sentido, los cambios en las condiciones ambientales causados por los usos de la tierra fuerzan que solo algunas especies del conjunto regional de especies puedan adaptarse (pérdida de riqueza) y generan cambios en la estructura de las comunidades de los ambientes naturales que reemplazan. La intensificación en el uso de la tierra puede alterar la magnitud de los filtros, produciendo en muchos casos que el filtrado ambiental sea el mecanismo preponderante en la formación de los ensambles. Los factores que regulan la presencia de las especies en los usos de la tierra se relacionan con los recursos y condiciones que caracterizan a los nuevos hábitats resultantes.
 
 ```{r, include=FALSE}
 knitr::write_bib(c('posterdown', 'rmarkdown','pagedown'), 'packages.bib')
 ```
 
-## Objectivos
+## Objetivo
 
 Determinar la acción de los procesos determinísticos en la formación de ensambles de hormigas epígeas en una cronosecuencia forestal e identificar asociaciones entre los rasgos funcionales y las variables ambientales.
 
 # Métodos
 
-I will show here how to include poster elements that may be useful, such as an equation using mathjax:
+Se seleccionaron plantaciones de 9 edades con tres replicas por edad. Se colocaron 4 trampas de caída por réplica, se midieron las VA y rasgos funcionales morfométricos relacionados el uso del recurso y estrategias de forrajeo. Se calculó el tamaño del efecto estandarizado de la diversidad funcional (SES FDis) para analizar la relación entre la diversidad funcional observada y la esperada a partir de modelos nulos. Además, se realizó el análisis de las cuatro esquinas para identificar asociaciones significativas entre las VA y los rasgos funcionales.
+
+```{r , echo= FALSE, out.width='80%', fig.align='center'}
+
+knitr::include_graphics('C:/Users/Pame/Documents/GitHub/Poster_1ersibermirmeco/figures/area_estudio.png')
+```
 
 $$
 E = mc^2
 $$
 
-To reference a citation you can add your `.bib` file to the working directory and name it in the YAML metadata or generate an automated one as done here, then you only need to reference the label value in the `.bib` file. For example this package is built on top of the wonderful {pagedown} package and I will cite it at the end of this sentance using this in the rmd `[@R-pagedown]` [@R-pagedown].
+To reference a citation you can add your `.bib` file to the working directory and name it in the YAML metadata or generate an automated one as done here, then you only need to reference the label value in the `.bib` file. For example this package is built on top of the wonderful {pagedown} package and I will cite it at the end of this sentance using this in the rmd `[@R-posterdown]` [@R-posterdown].
 
 To get a better understanding of how to include features like these please refer to the {posterdown} [wiki](https://github.com/posterdown/wiki).
 
 **_Now on to the results!_**
 
 # Resultados
+
+```{r, echo=FALSE }
+library(mvabund)
+abun_h<- read.csv("data/mtax_hor_nuevo_paper.csv", header=T, row.names = 1)
+trait_h<- read.csv("data/mfun_h_paper_FourthCorner_Paper.csv", header=T, row.names = 1)
+env_h<- read.csv("data/environ_h_paper.csv", header=T)
+
+ft_h=traitglm(abun_h,env_h,trait_h, method="glm1path", family="poisson")
+
+library(lattice)
+a        = max( abs(ft_h$fourth.corner) )
+colort   = colorRampPalette(c("blue","white","red")) 
+plot.4th_h = levelplot(t(as.matrix(ft_h$fourth.corner)), xlab="",
+                     ylab="", col.regions=colort(100), at=seq(-a, a, length=100),
+                     
+                     
+                     scales = list( x= list(rot = 45)))
+print(plot.4th_h)
+```
 
 Here you may have some figures to show off, bellow I have made a scatterplot with the infamous Iris dataset and I can even reference to the figure automatically like this, `Figure \@ref(fig:irisfigure)`, Figure \@ref(fig:irisfigure).
 
