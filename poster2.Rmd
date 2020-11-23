@@ -1,81 +1,87 @@
 ---
-main_topsize: 0.2 #percent coverage of the poster
+main_topsize: 0.15 #percent coverage of the poster
 main_bottomsize: 0.1
 #ESSENTIALS
 title: "**Mecanismos de formación de ensambles de hormigas dentro del ciclo forestal del eucalipto en la Pampa Mesopotámica: el rol de los procesos determinísticos y los factores abióticos**"
 author:
   - name: '**Pamela E. Pairo**'
-    affil: 1
+    #affil: 1
     main: true
-    orcid: '0000-0002-8900-896X'
     twitter: pamepairo 
+    #orcid: '0000-0002-8900-896X'
     email: pamepairo@gmail.com
   - name: Carolina Pinto
-    affil: 1
+    #affil: 1
     main: true
-    email: 'ag.con@posterdown.net'
   - name: M. Isabel Bellocq
-    affil: 1
+    #affil: 1
 affiliation:
-  - num: 1
+  #- num: 1
     address: Laboratorio de Ecología de Comunidades y Macroecología, Facultad de Ciencias Exactas y Naturales, Universidad de Buenos Aires, Argentina.
 output: 
   posterdown::posterdown_html:
     self_contained: false
     pandoc_args: --mathjax
     number_sections: false
-link-citations: true
 primary_colour: "#3CB371"
-titlebox_borderwidth: "0.7cm"
-title_textsize: "65pt"
+titlebox_borderwidth: "0.2cm"
+title_textsize: "17pt"
+author_textsize: "15pt"
+affiliation_textsize: "12pt"
 logoleft_name: "figures/uba.png"
 logoright_name: "figures/ecoma.png"
+#knit: pagedown::chrome_print
+poster_height: "30cm"
+poster_width: "22cm"
+body_textsize: "13px"
+sectitle_textsize: "18pt"
+sectitle2_textsize: "15pt"
+columnline_width: "0.2mm"
+columnline_col: "#8A2BE2"
 ---
+<style type="text/css">
+.caption {
+    font-size: x-small;
+    }
+</style>
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE,
-                      warning = FALSE,
-                      tidy = FALSE,
-                      message = FALSE,
-                      fig.align = 'center',
-                      out.width = "100%")
-options(knitr.table.format = "html") 
+knitr::opts_chunk$set(echo = FALSE, out.width = "100%", warning = FALSE, fig.align = 'center', message = FALSE)
+library (mvabund)
+library (ggplot2)
+library(lattice)
+
 ```
 
 # Introducción
 
-El cambio del uso del suelo es uno de los mayores responsables de la pérdida de biodiversidad en hábitats terrestres causando la degradación y pérdida de los ambientes naturales. En este sentido, los cambios en las condiciones ambientales causados por los usos de la tierra fuerzan que solo algunas especies del conjunto regional de especies puedan adaptarse (pérdida de riqueza) y generan cambios en la estructura de las comunidades de los ambientes naturales que reemplazan. La intensificación en el uso de la tierra puede alterar la magnitud de los filtros, produciendo en muchos casos que el filtrado ambiental sea el mecanismo preponderante en la formación de los ensambles. Los factores que regulan la presencia de las especies en los usos de la tierra se relacionan con los recursos y condiciones que caracterizan a los nuevos hábitats resultantes.
+El cambio del uso del suelo es uno de los mayores responsables de la pérdida de biodiversidad en hábitats terrestres. Los cambios en las condiciones ambientales causados por los usos de la tierra fuerzan que solo algunas especies del conjunto regional de especies puedan adaptarse (pérdida de riqueza) y generan cambios en la estructura taxonómica y funcional de las comunidades.
+El filtrado ambiental es reconocido como el principal mecanismo formador de ensambles en hábitats antrópicos, aunque poco se sabe acerca del rol de otros procesos determinísticos. Los factores que regulan la presencia de las especies en los usos de la tierra se relacionan con los recursos y condiciones que caracterizan a los nuevos hábitats resultantes. 
 
-```{r, include=FALSE}
-knitr::write_bib(c('posterdown', 'rmarkdown','pagedown'), 'packages.bib')
-```
-
-## Objetivo
-
-Determinar la acción de los procesos determinísticos en la formación de ensambles de hormigas epígeas en una cronosecuencia forestal e identificar asociaciones entre los rasgos funcionales y las variables ambientales.
+**_Objetivo:_** Determinar la acción de los procesos determinísticos en la formación de ensambles de hormigas epígeas en una cronosecuencia forestal de eucalipto e identificar asociaciones entre los rasgos funcionales y las variables ambientales (VA)
 
 # Métodos
 
-Se seleccionaron plantaciones de 9 edades con tres replicas por edad. Se colocaron 4 trampas de caída por réplica, se midieron las VA y rasgos funcionales morfométricos relacionados el uso del recurso y estrategias de forrajeo. Se calculó el tamaño del efecto estandarizado de la diversidad funcional (SES FDis) para analizar la relación entre la diversidad funcional observada y la esperada a partir de modelos nulos. Además, se realizó el análisis de las cuatro esquinas para identificar asociaciones significativas entre las VA y los rasgos funcionales.
-
-```{r , echo= FALSE, out.width='80%', fig.align='center'}
+Se seleccionaron plantaciones de 8 edades con tres réplicas por edad. Se colocaron 4 trampas de caída por réplica y se midieron las VA (temperatura, cobertura de herbáceas, canopia, altura de la hojarasca) en cada sitio. Se calculó la disimilitud ambiental (Indice de gower) entre cada edad de la plantación y los pastizales de referencia agrupados, el cual aumenta con la edad.
+```{r , echo= FALSE, out.width='90%', fig.align='center'}
 
 knitr::include_graphics('C:/Users/Pame/Documents/GitHub/Poster_1ersibermirmeco/figures/area_estudio.png')
 ```
+Los rasgos funcionales morfométricos relacionados el uso del recurso y estrategias de forrajeo fueron medidos en hormigas obreras para luego estimar la diversidad funcional (FDis).
+Además, se realizó el análisis de las cuatro esquinas para identificar asociaciones significativas entre las VA y los rasgos funcionales.
+```{r , echo= FALSE, out.width='90%', fig.align='center', cache=TRUE, fig.asp = 0.8, fig.width=5}
 
+knitr::include_graphics('C:/Users/Pame/Documents/GitHub/Poster_1ersibermirmeco/figures/hormiga.png')
+```
+
+Se compararon los valores de FDis de cada sitio con los esperados a partir del modelo nulo de formación de ensambles. La distribución nula de las especies se obtuvo a partir de generar 999 comunidades aleatorias por sitio utilizando el algoritmo _richness_. Luego, para determinar si los valores observados de FDis era menos o más de los esperado por el modelo nulo, se calculó el efecto del tamaño estandarizado (SES FDis) a partir de la siguiente fórmula:
 $$
-E = mc^2
+SES FDis=\frac{FDis Obs- FDis nulo}{sd (FDis nulo)}
 $$
-
-To reference a citation you can add your `.bib` file to the working directory and name it in the YAML metadata or generate an automated one as done here, then you only need to reference the label value in the `.bib` file. For example this package is built on top of the wonderful {pagedown} package and I will cite it at the end of this sentance using this in the rmd `[@R-posterdown]` [@R-posterdown].
-
-To get a better understanding of how to include features like these please refer to the {posterdown} [wiki](https://github.com/posterdown/wiki).
-
-**_Now on to the results!_**
 
 # Resultados
 
-
+La riqueza disminuyó significativamente con el aumento de la disimilitud ambiental (Devianza=-8.18, p<0.01).
 ```{r grafico riqueza,out.width='70%', echo=FALSE}
 hormigas <- read.delim("data/riq_hor_paper.txt")
 m_hormigas<-glm (Riqueza~DISIMILITUD,family=poisson, data=hormigas)
@@ -97,11 +103,7 @@ glm_h<-g0_h+geom_point(size=4)+geom_smooth(method= "glm",method.args = list(fami
 glm_riq_hor<-glm_h + scale_x_continuous(name="Disimilitud ambiental",breaks=seq(0,2,0.1))+scale_y_continuous(name="Riqueza observada",breaks=seq(0,30,5))+theme_classic(base_size = 30)+ theme (axis.text.x = element_text(face="bold",size=22),axis.text.y = element_text(face="bold",size=22),axis.title=element_text(size=22,face="bold"))#### grafico final de hormigas
 glm_riq_hor
 ```
-
-
-
-
-
+La diversidad funcional aumento significativamente con el aumento de la disimilitud ambiental (F=5.32, p=0.03).
 ```{r DF, out.width='70%',echo=FALSE}
 hormigas_F <- read.delim("data/fun_hor_CP_paper.txt")
 hormigas_F <- hormigas_F[-c(16), ]###posible outlier, saque este outlier 
@@ -138,8 +140,8 @@ glm1_FH<-g0_FH+geom_point(size=4,)+geom_smooth(method="lm", se=TRUE, color="blac
 glm2_f_HORMIGAS<- glm1_FH + scale_x_continuous(name="Disimilitud ambiental",breaks=seq(0,1,0.1))+scale_y_continuous(name="FDis",breaks=seq(0,10,0.2))+theme_classic(base_size = 30)+ theme (axis.text.x = element_text(face="bold",size=22),axis.text.y = element_text(face="bold",size=22),axis.title=element_text(size=22,face="bold"))
 glm2_f_HORMIGAS
 ```
-
-```{r SES FDIS,out.width='70%', fig.cap='Fig. :Variación de SES FDis con la disimilitud ambiental', echo=FALSE}
+Se observó un aumento de los valores de SES FDis con el aumento de la disimilitud ambiental (F=6.59 p=0.02).
+```{r SES FDIS,out.width='70%', echo=FALSE}
 ses_H <- read.table("data/SES_hor_paper.txt", sep="\t", header = T)#esta matriz de por si ya no incluye el sitio FK.
 #SES FDis HORMIGAS vs disimilitud ambiental
 # glm.sesA_H<- lm(SES_fre ~ disimilitud, data=ses_H) 
@@ -172,26 +174,25 @@ glm_h_a<-glm_h_a + scale_x_continuous(name="Disimilitud ambiental",breaks=seq(0,
 glm_h_a
 ```
 
+La siguiente Figura muestran las asociaciones positivas entre los rasgos funcionales medidos y las variables ambientales. 
 
++ Rojo: asociación +  
++ Azul: asociación - 
 ```{r, out.width='110%',echo=FALSE }
-library(mvabund)
 abun_h<- read.csv("data/mtax_hor_nuevo_paper.csv", header=T, row.names = 1)
 trait_h<- read.csv("data/mfun_h_paper_FourthCorner_Paper.csv", header=T, row.names = 1)
 env_h<- read.csv("data/environ_h_paper.csv", header=T)
 
 ft_h=traitglm(abun_h,env_h,trait_h, method="glm1path", family="poisson")
 
-library(lattice)
 a        = max( abs(ft_h$fourth.corner) )
 colort   = colorRampPalette(c("blue","white","red")) 
 plot.4th_h = levelplot(t(as.matrix(ft_h$fourth.corner)), xlab="",
                      ylab="", col.regions=colort(100), at=seq(-a, a, length=100),
                      
-                     
                      scales = list( x= list(rot = 45)))
 print(plot.4th_h)
 ```
-
 
 # Conclusiones 
 
