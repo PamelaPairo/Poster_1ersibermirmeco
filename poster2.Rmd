@@ -2,7 +2,7 @@
 main_topsize: 0.2 #percent coverage of the poster
 main_bottomsize: 0.1
 #ESSENTIALS
-title: "Mecanismos de formación de ensambles de hormigas dentro del ciclo forestal del eucalipto en la Pampa Mesopotámica: el rol de los procesos determinísticos y los factores abióticos"
+title: "**Mecanismos de formación de ensambles de hormigas dentro del ciclo forestal del eucalipto en la Pampa Mesopotámica: el rol de los procesos determinísticos y los factores abióticos**"
 author:
   - name: '**Pamela E. Pairo**'
     affil: 1
@@ -24,12 +24,12 @@ output:
     self_contained: false
     pandoc_args: --mathjax
     number_sections: false
-bibliography: packages.bib
 link-citations: true
 primary_colour: "#3CB371"
 titlebox_borderwidth: "0.7cm"
-title_textsize: "70pt"
+title_textsize: "65pt"
 logoleft_name: "figures/uba.png"
+logoright_name: "figures/ecoma.png"
 ---
 
 ```{r, include=FALSE}
@@ -75,7 +75,105 @@ To get a better understanding of how to include features like these please refer
 
 # Resultados
 
-```{r, echo=FALSE }
+
+```{r grafico riqueza,out.width='70%', echo=FALSE}
+hormigas <- read.delim("data/riq_hor_paper.txt")
+m_hormigas<-glm (Riqueza~DISIMILITUD,family=poisson, data=hormigas)
+#summary(m_hormigas)
+
+hormigas<-hormigas[-c( 4), ]#### outlier, es el sitio FK donde solo hay 3
+# n<-nrow(hormigas)
+# param<-length(coef(m_hormigas))+1 #se suma 1 porque se estim? k
+# (dispersion<-sum(resid(m_hormigas, type="pearson")^2/(n-param)))
+# m_hormigas_nulo<-glm (Riqueza~1,family=poisson, data=hormigas)
+# 
+# anova(m_hormigas, m_hormigas_nulo, test="Chisq")
+library(ggplot2)
+
+g0_h<-ggplot(hormigas,aes(x=DISIMILITUD,y=Riqueza))
+glm_h<-g0_h+geom_point(size=4)+geom_smooth(method= "glm",method.args = list(family = "poisson"), se=TRUE, color="black")
+
+
+glm_riq_hor<-glm_h + scale_x_continuous(name="Disimilitud ambiental",breaks=seq(0,2,0.1))+scale_y_continuous(name="Riqueza observada",breaks=seq(0,30,5))+theme_classic(base_size = 30)+ theme (axis.text.x = element_text(face="bold",size=22),axis.text.y = element_text(face="bold",size=22),axis.title=element_text(size=22,face="bold"))#### grafico final de hormigas
+glm_riq_hor
+```
+
+
+
+
+
+```{r DF, out.width='70%',echo=FALSE}
+hormigas_F <- read.delim("data/fun_hor_CP_paper.txt")
+hormigas_F <- hormigas_F[-c(16), ]###posible outlier, saque este outlier 
+
+#HORMIGAS FUNCIONAL
+mhormigas<-lm (FDis~ disimilitud, data=hormigas_F)
+hormigas_poly<- lm(FDis ~ disimilitud+ I(disimilitud^2), data=hormigas_F)
+mhormigas_nulo<-lm (FDis~ 1, data=hormigas_F)
+
+#seleccion de modelos hacia atras (poster)
+#anova(hormigas_poly, mhormigas)
+#anova (mhormigas,mhormigas_nulo)
+#summary(mhormigas)
+
+
+#AIC(mhormigas, poly_h, mhormigas_nulo)#seleccion de modelos por AIC.
+
+#Supuestos
+re<-rstandard(mhormigas) #residuos para modelos con distribucion beta
+pre<-predict(mhormigas) #predichos
+e<-residuals(mhormigas) # residuos
+#re
+#par(mfrow = c(1, 2))
+#plot(pre, re, xlab="Predichos", ylab="Residuos estandarizados",main="Gr?fico de dispersi?n de RE vs PRED" )
+#abline(0,0)
+#qqnorm(e)
+#qqline(e)
+#shapiro.test(e)
+
+g0_FH<-ggplot(hormigas_F,aes(x=disimilitud,y=FDis))
+glm1_FH<-g0_FH+geom_point(size=4,)+geom_smooth(method="lm", se=TRUE, color="black") 
+
+
+glm2_f_HORMIGAS<- glm1_FH + scale_x_continuous(name="Disimilitud ambiental",breaks=seq(0,1,0.1))+scale_y_continuous(name="FDis",breaks=seq(0,10,0.2))+theme_classic(base_size = 30)+ theme (axis.text.x = element_text(face="bold",size=22),axis.text.y = element_text(face="bold",size=22),axis.title=element_text(size=22,face="bold"))
+glm2_f_HORMIGAS
+```
+
+```{r SES FDIS,out.width='70%', fig.cap='Fig. :Variación de SES FDis con la disimilitud ambiental', echo=FALSE}
+ses_H <- read.table("data/SES_hor_paper.txt", sep="\t", header = T)#esta matriz de por si ya no incluye el sitio FK.
+#SES FDis HORMIGAS vs disimilitud ambiental
+# glm.sesA_H<- lm(SES_fre ~ disimilitud, data=ses_H) 
+# glm.sesA_H_nulo<- lm(SES_fre ~ 1, data=ses_H) 
+# glm.sesA_H_poly<- lm(SES_fre ~ disimilitud+ I(disimilitud^2), data=ses_H)##probando el termino cuadratico. No dio significativo respecto al nulo. p=0.064
+# 
+# #haciendo la seleccion de modelos hacia atras (paper)
+# anova(glm.sesA_H_poly,glm.sesA_H)
+# anova(glm.sesA_H_nulo,glm.sesA_H)
+
+#summary(glm.sesA_H)
+#AIC(glm.sesA_H,glm.sesA_H_nulo, glm.sesA_H_poly)#seleccion de modelos por AIC
+
+# par(mfrow=c(2,2))
+# plot(glm.sesA_H)
+# 
+# windows()
+# e<-resid(glm.sesA_H) # residuos
+# re<-rstandard(glm.sesA_H) #residuos estandarizados
+# pre<-predict(glm.sesA_H) #predichos
+# par(mfrow = c(1, 2))
+# re
+# plot(pre, re, ylim=c(-2.9,2.9),xlab="Predichos", ylab="Residuos estandarizados",main="Gr?fico de dispersi?n de RE vs PRED" )
+
+g0_h_a<-ggplot(ses_H,aes(x=disimilitud,y=SES_fre))
+glm_h_a<-g0_h_a+geom_point(size=4)+geom_smooth(method="lm", se=T, color="black") 
+#glm_h_a
+
+glm_h_a<-glm_h_a + scale_x_continuous(name="Disimilitud ambiental",breaks=seq(0,2,0.1))+scale_y_continuous(name="SES FDis",breaks=seq(-3,3,1))+theme_classic(base_size = 30)+ theme (axis.text.x = element_text(face="bold",size=22),axis.text.y = element_text(face="bold",size=22),axis.title=element_text(size=22  ,face="bold"))+geom_hline(yintercept=1.96, size=1,linetype="dashed", color = "black")+geom_hline(yintercept=-1.96,size=1, linetype="dashed", color = "black")+geom_hline(yintercept= 0,size=1, color = "black")#### grafico final de hormigas
+glm_h_a
+```
+
+
+```{r, out.width='110%',echo=FALSE }
 library(mvabund)
 abun_h<- read.csv("data/mtax_hor_nuevo_paper.csv", header=T, row.names = 1)
 trait_h<- read.csv("data/mfun_h_paper_FourthCorner_Paper.csv", header=T, row.names = 1)
@@ -94,43 +192,8 @@ plot.4th_h = levelplot(t(as.matrix(ft_h$fourth.corner)), xlab="",
 print(plot.4th_h)
 ```
 
-Here you may have some figures to show off, bellow I have made a scatterplot with the infamous Iris dataset and I can even reference to the figure automatically like this, `Figure \@ref(fig:irisfigure)`, Figure \@ref(fig:irisfigure).
-
-```{r, irisfigure, fig.cap='Here is a caption for the figure. This can be added by using the "fig.cap" option in the r code chunk options, see this [link](https://yihui.name/knitr/options/#plots) from the legend himself, [Yihui Xie](https://twitter.com/xieyihui).', out.width="80%"}
-par(mar=c(2,2,0,1))
-plot(x = iris$Sepal.Length, y = iris$Sepal.Width,
-     col = iris$Species, pch = 19, xlab = "Sepal Length",
-     ylab = "Sepal Width")
-```
-
-Maybe you want to show off some of that fancy code you spent so much time on to make that figure, well you can do that too! Just use the `echo=TRUE` option in the r code chunk options, Figure \@ref(fig:myprettycode)!
-
-```{r myprettycode, echo=TRUE, fig.cap='Boxplots, so hot right now!', fig.height=6, out.width="80%"}
-#trim whitespace
-par(mar=c(2,2,0,0))
-#plot boxplots
-boxplot(iris$Sepal.Width~iris$Species,
-        col = "#008080", 
-        border = "#0b4545",
-        ylab = "Sepal Width (cm)",
-        xlab = "Species")
-```
-
-How about a neat table of data? See, Table \@ref(tab:iristable):
-
-```{r, iristable}
-knitr::kable(
-  iris[1:15,1:5], format = "html",
-  caption = "A table made with the **knitr::kable** function.",
-  align = "c", col.names = c("Sepal <br> Length",
-                             "Sepal <br> Width",
-                             "Petal <br> Length",
-                             "Petal <br> Width",
-                             "Species"),
-  escape = FALSE)
-```
 
 # Conclusiones 
 
 
-# References
+
