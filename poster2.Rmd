@@ -178,7 +178,8 @@ La siguiente Figura muestran las asociaciones positivas entre los rasgos funcion
 
 + Rojo: asociación +  
 + Azul: asociación - 
-```{r, out.width='110%',echo=FALSE }
+```{r,echo=FALSE, cache=TRUE, fig.asp = 1, fig.width=3.4}
+
 abun_h<- read.csv("data/mtax_hor_nuevo_paper.csv", header=T, row.names = 1)
 trait_h<- read.csv("data/mfun_h_paper_FourthCorner_Paper.csv", header=T, row.names = 1)
 env_h<- read.csv("data/environ_h_paper.csv", header=T)
