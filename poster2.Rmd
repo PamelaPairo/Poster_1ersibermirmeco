@@ -1,7 +1,7 @@
 ---
+#----ESSENTIALS----#
 main_topsize: 0.15 #percent coverage of the poster
 main_bottomsize: 0.1
-#ESSENTIALS
 title: "**Mecanismos de formación de ensambles de hormigas dentro del ciclo forestal del eucalipto en la Pampa Mesopotámica: el rol de los procesos determinísticos y los factores abióticos**"
 author:
   - name: '**Pamela E. Pairo**'
@@ -18,12 +18,15 @@ author:
 affiliation:
   #- num: 1
     address: Laboratorio de Ecología de Comunidades y Macroecología, Facultad de Ciencias Exactas y Naturales, Universidad de Buenos Aires, Argentina.
+primary_colour: "#3CB371"
+poster_height: "30.5cm"
+poster_width: "22cm"
 output: 
   posterdown::posterdown_html:
     self_contained: false
     pandoc_args: --mathjax
     number_sections: false
-primary_colour: "#3CB371"
+#----TITLE BOX----#
 titlebox_borderwidth: "0.15cm"
 title_textsize: "18pt"
 author_textsize: "15pt"
@@ -31,8 +34,7 @@ author_textcol: "#000000"
 affiliation_textsize: "15pt"
 logoleft_name: "figures/uba.png"
 logoright_name: "figures/ecoma.png"
-poster_height: "30.5cm"
-poster_width: "22cm"
+#----POSTER BODY----#
 body_textsize: "12px"
 sectitle_textsize: "18pt"
 sectitle2_textsize: "15pt"
@@ -47,7 +49,6 @@ knitr::opts_chunk$set(echo = FALSE, out.width = "100%", warning = FALSE, fig.ali
 library (mvabund)
 library (ggplot2)
 library(lattice)
-
 ```
 
 # Introducción
