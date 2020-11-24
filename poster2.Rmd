@@ -24,26 +24,23 @@ output:
     pandoc_args: --mathjax
     number_sections: false
 primary_colour: "#3CB371"
-titlebox_borderwidth: "0.2cm"
-title_textsize: "17pt"
+titlebox_borderwidth: "0.15cm"
+title_textsize: "18pt"
 author_textsize: "15pt"
-affiliation_textsize: "12pt"
+author_textcol: "#000000"
+affiliation_textsize: "15pt"
 logoleft_name: "figures/uba.png"
 logoright_name: "figures/ecoma.png"
-#knit: pagedown::chrome_print
-poster_height: "30cm"
+poster_height: "30.5cm"
 poster_width: "22cm"
-body_textsize: "13px"
+body_textsize: "12px"
 sectitle_textsize: "18pt"
 sectitle2_textsize: "15pt"
 columnline_width: "0.2mm"
 columnline_col: "#8A2BE2"
+link_col: "#8A2BE2"
+#knit: pagedown::chrome_print
 ---
-<style type="text/css">
-.caption {
-    font-size: x-small;
-    }
-</style>
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, out.width = "100%", warning = FALSE, fig.align = 'center', message = FALSE)
@@ -55,20 +52,20 @@ library(lattice)
 
 # Introducción
 
-El cambio del uso del suelo es uno de los mayores responsables de la pérdida de biodiversidad en hábitats terrestres. Los cambios en las condiciones ambientales causados por los usos de la tierra fuerzan que solo algunas especies del conjunto regional de especies puedan adaptarse (pérdida de riqueza) y generan cambios en la estructura taxonómica y funcional de las comunidades.
-El filtrado ambiental es reconocido como el principal mecanismo formador de ensambles en hábitats antrópicos, aunque poco se sabe acerca del rol de otros procesos determinísticos. Los factores que regulan la presencia de las especies en los usos de la tierra se relacionan con los recursos y condiciones que caracterizan a los nuevos hábitats resultantes. 
+El cambio del uso del suelo es uno de los responsables de la pérdida de biodiversidad global. Los cambios en las condiciones ambientales causados por los usos de la tierra fuerzan que solo algunas especies del conjunto regional de especies puedan adaptarse (pérdida de riqueza) y generan cambios en la estructura taxonómica y funcional de las comunidades.
+El filtrado ambiental es reconocido como el principal mecanismo formador de ensambles en hábitats antrópicos, aunque poco se sabe acerca del rol de otros procesos determinísticos. 
 
 **_Objetivo:_** Determinar la acción de los procesos determinísticos en la formación de ensambles de hormigas epígeas en una cronosecuencia forestal de eucalipto e identificar asociaciones entre los rasgos funcionales y las variables ambientales (VA)
 
 # Métodos
 
-Se seleccionaron plantaciones de 8 edades con tres réplicas por edad. Se colocaron 4 trampas de caída por réplica y se midieron las VA (temperatura, cobertura de herbáceas, canopia, altura de la hojarasca) en cada sitio. Se calculó la disimilitud ambiental (Indice de gower) entre cada edad de la plantación y los pastizales de referencia agrupados, el cual aumenta con la edad.
-```{r , echo= FALSE, out.width='90%', fig.align='center'}
+Se seleccionaron plantaciones de 8 edades con 3 réplicas por edad. Se colocaron 4 trampas de caída por réplica y se midieron las VA (temperatura, cobertura de herbáceas, canopia, altura de la hojarasca). Se calculó la disimilitud ambiental (Indice de Gower) entre cada edad de la plantación y los pastizales de referencia agrupados, el cual aumenta con la edad.
+```{r , echo= FALSE, out.width='95%', fig.align='center'}
 
 knitr::include_graphics('C:/Users/Pame/Documents/GitHub/Poster_1ersibermirmeco/figures/area_estudio.png')
 ```
-Los rasgos funcionales morfométricos relacionados el uso del recurso y estrategias de forrajeo fueron medidos en hormigas obreras para luego estimar la diversidad funcional (FDis).
-Además, se realizó el análisis de las cuatro esquinas para identificar asociaciones significativas entre las VA y los rasgos funcionales.
+
+Los rasgos funcionales morfométricos relacionados el uso del recurso y estrategias de forrajeo fueron medidos en 1-6 hormigas obreras para luego estimar la diversidad funcional (FDis).Además, se realizó el análisis de las cuatro esquinas para identificar asociaciones significativas entre las VA y los rasgos funcionales.
 ```{r , echo= FALSE, out.width='90%', fig.align='center', cache=TRUE, fig.asp = 0.8, fig.width=5}
 
 knitr::include_graphics('C:/Users/Pame/Documents/GitHub/Poster_1ersibermirmeco/figures/hormiga.png')
@@ -82,7 +79,7 @@ $$
 # Resultados
 
 La riqueza disminuyó significativamente con el aumento de la disimilitud ambiental (Devianza=-8.18, p<0.01).
-```{r grafico riqueza,out.width='70%', echo=FALSE}
+```{r grafico riqueza,out.width='80%', echo=FALSE}
 hormigas <- read.delim("data/riq_hor_paper.txt")
 m_hormigas<-glm (Riqueza~DISIMILITUD,family=poisson, data=hormigas)
 #summary(m_hormigas)
@@ -103,8 +100,9 @@ glm_h<-g0_h+geom_point(size=4)+geom_smooth(method= "glm",method.args = list(fami
 glm_riq_hor<-glm_h + scale_x_continuous(name="Disimilitud ambiental",breaks=seq(0,2,0.1))+scale_y_continuous(name="Riqueza observada",breaks=seq(0,30,5))+theme_classic(base_size = 30)+ theme (axis.text.x = element_text(face="bold",size=22),axis.text.y = element_text(face="bold",size=22),axis.title=element_text(size=22,face="bold"))#### grafico final de hormigas
 glm_riq_hor
 ```
-La diversidad funcional aumento significativamente con el aumento de la disimilitud ambiental (F=5.32, p=0.03).
-```{r DF, out.width='70%',echo=FALSE}
+
+La diversidad funcional aumentó significativamente con el aumento de la disimilitud ambiental (F=5.32, p=0.03).
+```{r DF, out.width='80%',echo=FALSE}
 hormigas_F <- read.delim("data/fun_hor_CP_paper.txt")
 hormigas_F <- hormigas_F[-c(16), ]###posible outlier, saque este outlier 
 
@@ -140,8 +138,9 @@ glm1_FH<-g0_FH+geom_point(size=4,)+geom_smooth(method="lm", se=TRUE, color="blac
 glm2_f_HORMIGAS<- glm1_FH + scale_x_continuous(name="Disimilitud ambiental",breaks=seq(0,1,0.1))+scale_y_continuous(name="FDis",breaks=seq(0,10,0.2))+theme_classic(base_size = 30)+ theme (axis.text.x = element_text(face="bold",size=22),axis.text.y = element_text(face="bold",size=22),axis.title=element_text(size=22,face="bold"))
 glm2_f_HORMIGAS
 ```
+
 Se observó un aumento de los valores de SES FDis con el aumento de la disimilitud ambiental (F=6.59 p=0.02).
-```{r SES FDIS,out.width='70%', echo=FALSE}
+```{r SES FDIS,out.width='80%', echo=FALSE}
 ses_H <- read.table("data/SES_hor_paper.txt", sep="\t", header = T)#esta matriz de por si ya no incluye el sitio FK.
 #SES FDis HORMIGAS vs disimilitud ambiental
 # glm.sesA_H<- lm(SES_fre ~ disimilitud, data=ses_H) 
@@ -174,10 +173,7 @@ glm_h_a<-glm_h_a + scale_x_continuous(name="Disimilitud ambiental",breaks=seq(0,
 glm_h_a
 ```
 
-La siguiente Figura muestran las asociaciones positivas entre los rasgos funcionales medidos y las variables ambientales. 
-
-+ Rojo: asociación +  
-+ Azul: asociación - 
+La siguiente figura muestran las asociaciones significativas entre los rasgos funcionales medidos y las VA. Rojo indica asociación +, azul indica asociación -.
 ```{r,echo=FALSE, cache=TRUE, fig.asp = 1, fig.width=3.4}
 
 abun_h<- read.csv("data/mtax_hor_nuevo_paper.csv", header=T, row.names = 1)
@@ -197,5 +193,6 @@ print(plot.4th_h)
 
 # Conclusiones 
 
+El ciclo forestal del eucalipto impacta diferencialmente en las facetas de la diversidad de hormigas. Aunque se observa la disminución de la riqueza observada, la diversidad funcional aumenta. Esto puede deberse a la colonización de los nuevos habitats dentro de las plantaciones maduras (ramas, troncos en descomposición) por especies con nuevos rasgos funcionales. Se encontró evidencias de que el **filtrado ambiental** jugaría un papel importante en el estructuramiento de los ensambles de hormigas de las plantaciones jóvenes (menor disimilitud ambiental) y la **diferenciación de nicho** en las plantaciones maduras.
 
-
+_Póster realizado con [posterdown](https://github.com/brentthorne/posterdown). Código [aquí](https://github.com/PamelaPairo/Poster_1ersibermirmeco). Twitter:[**@pamepairo**](https://twitter.com/PamePairo)_

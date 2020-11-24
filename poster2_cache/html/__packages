@@ -2,3 +2,4 @@ base
 mvabund
 ggplot2
 lattice
+knitr
